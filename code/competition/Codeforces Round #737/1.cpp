@@ -71,7 +71,7 @@ print(oth...);
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
 const ll llinf = 4223372036854775851;
-const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod = (1 ? 1000000007 : 998244353);
 ll pow(ll a,ll b,ll md=mod) {ll res=1;a%=md; assert(b>=0); for(;b;b>>=1){if(b&1)res=mul(res,a,md);a=mul(a,a,md);}return res;}
 const ll mod2 = 999998639;
 const int m1 = 998244353;
@@ -79,52 +79,56 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
-const int maxn = 510000;
-int nxt[210000];
-inline void cal_next(string &str)
-{
-   nxt[0] = -1;
-   int k = -1;
-   for (int q = 1; q < str.size(); q++)
-   {
-      while (k > -1 && str[k + 1] != str[q])
-         k = nxt[k];
-      if (str[k + 1] == str[q])
-      k = k + 1;
-   nxt[q] = k;
-   }
+const int maxn = 210000;
+int pre[maxn+100];
+// ll powmod(ll a,ll b) {ll res=1;a%=mod; assert(b>=0); for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
+inline int niyuan(int x, int mod) { return pow(x, mod - 2); }
+void init(){
+    pre[0]=1;
+    for(int i=1;i<=maxn;i++)
+        pre[i]=pre[i-1]*i%mod;
 }
-int KMP(string &a, string &b)
-{
-   cal_next(b);
-   int k = -1;
-   for (int i = 0; i < a.size(); i++)
-   {
-      while (k > -1 && b[k + 1] != a[i])
-         k = nxt[k];
-      if (b[k + 1] == a[i])
-         k = k + 1;
-      if (k == b.size() - 1)
-         return i;
-   }
-   return -1;
+int C(int n,int m){
+    if(n<m)
+        return 0;
+    return pre[n]*pow(pre[n-m],mod-2)%mod*pow(pre[m],mod-2)%mod;
 }
 void work()
 {
+    int n,k;
+    cin>>n>>k;
+    int ans=0;
+    for(int i=0;i<=n;i+=2)
+        ans+=C(n,i),ans%=mod;
+    if(n%2)
+        ans++;
+    int tot=pow(2,n);
+    int aa=0;
+    if(n%2)
+        cout<<pow(ans,k)<<endll;
+    else{
+        int aa=pow(ans,k);
+        for(int i=k-1;i>=1;i--){
+            aa+=pow(tot,i);
+            aa%=mod;
+        }
+        cout<<aa<<endl;
+    }
 }
 signed main()
 {
+    init();
    #ifndef ONLINE_JUDGE
    //freopen("in.txt","r",stdin);
-   //freopen("out.txt","w",stdout);
+    //freopen("out.txt","w",stdout);
 #endif
-   //std::ios::sync_with_stdio(false);
-   //cin.tie(NULL);
-   int t = 1;
-   //cin>>t;
-   while (t--)
-   {
-      work();
-   }
-   return 0;
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t = 1;
+    cin>>t;
+    while (t--)
+    {
+        work();
+    }
+    return 0;
 }

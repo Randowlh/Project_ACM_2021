@@ -80,51 +80,30 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int nxt[210000];
-inline void cal_next(string &str)
-{
-   nxt[0] = -1;
-   int k = -1;
-   for (int q = 1; q < str.size(); q++)
-   {
-      while (k > -1 && str[k + 1] != str[q])
-         k = nxt[k];
-      if (str[k + 1] == str[q])
-      k = k + 1;
-   nxt[q] = k;
-   }
-}
-int KMP(string &a, string &b)
-{
-   cal_next(b);
-   int k = -1;
-   for (int i = 0; i < a.size(); i++)
-   {
-      while (k > -1 && b[k + 1] != a[i])
-         k = nxt[k];
-      if (b[k + 1] == a[i])
-         k = k + 1;
-      if (k == b.size() - 1)
-         return i;
-   }
-   return -1;
-}
 void work()
 {
+    string tmp,tt;
+    cin>>tmp;
+    tmp.pop_back();
+    tt=tmp;
+    reverse(tmp.begin(), tmp.end());
+    if(tt==tmp){
+        cout<<"TRUE"<<endl;
+    }else cout<<"FALSE"<<endl;
 }
 signed main()
 {
    #ifndef ONLINE_JUDGE
    //freopen("in.txt","r",stdin);
-   //freopen("out.txt","w",stdout);
+    //freopen("out.txt","w",stdout);
 #endif
-   //std::ios::sync_with_stdio(false);
-   //cin.tie(NULL);
-   int t = 1;
-   //cin>>t;
-   while (t--)
-   {
-      work();
-   }
-   return 0;
+    //std::ios::sync_with_stdio(false);
+    //cin.tie(NULL);
+    int t = 1;
+    //cin>>t;
+    while (t--)
+    {
+        work();
+    }
+    return 0;
 }

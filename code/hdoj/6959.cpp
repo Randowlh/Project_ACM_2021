@@ -145,7 +145,7 @@ void work()
 signed main()
 {
    #ifndef ONLINE_JUDGE
-   freopen("in.txt","r",stdin);
+//    freopen("in.txt","r",stdin);
 //freopen("out.txt","w",stdout);
 #endif
 std::ios::sync_with_stdio(false);

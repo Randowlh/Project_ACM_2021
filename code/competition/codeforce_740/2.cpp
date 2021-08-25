@@ -3,9 +3,9 @@
 //using namespace __gnu_pbds;
 //using namespace __gnu_cxx;
 using namespace std;
-#pragma optimize(2)
-//#pragma GCC optimize("Ofast,no-stack-protector")
-//#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
+#pragma optimize(3)
+// #pragma GCC optimize("Ofast,no-stack-protector")
+// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
 #define rbset(T) tree<T,null_type,less<T>,rb_tree_tag,tree_order_statistics_node_update>
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
@@ -51,7 +51,7 @@ print(oth...);
 #define flush FastIO::flush
 #define spt fixed<<setprecision
 #define endll '\n'
-#define mul(a,b,mod) (__int128)(a)*(b)%(mod) 
+#define mul(a,b,mod) (ll)(a)*(b)%(mod) 
 #define pii(a,b) pair<a,b>
 #define pow powmod
 #define X first
@@ -67,11 +67,11 @@ print(oth...);
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg
 #define lr hope_you_will_be_happy_to_see_this
-#define int long long
+// #define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
 const ll llinf = 4223372036854775851;
-const ll mod = (0 ? 1000000007 : 998244353);
+ll mod = (0 ? 1000000007 : 998244353);
 ll pow(ll a,ll b,ll md=mod) {ll res=1;a%=md; assert(b>=0); for(;b;b>>=1){if(b&1)res=mul(res,a,md);a=mul(a,a,md);}return res;}
 const ll mod2 = 999998639;
 const int m1 = 998244353;
@@ -79,52 +79,39 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
-const int maxn = 510000;
-int nxt[210000];
-inline void cal_next(string &str)
-{
-   nxt[0] = -1;
-   int k = -1;
-   for (int q = 1; q < str.size(); q++)
-   {
-      while (k > -1 && str[k + 1] != str[q])
-         k = nxt[k];
-      if (str[k + 1] == str[q])
-      k = k + 1;
-   nxt[q] = k;
-   }
-}
-int KMP(string &a, string &b)
-{
-   cal_next(b);
-   int k = -1;
-   for (int i = 0; i < a.size(); i++)
-   {
-      while (k > -1 && b[k + 1] != a[i])
-         k = nxt[k];
-      if (b[k + 1] == a[i])
-         k = k + 1;
-      if (k == b.size() - 1)
-         return i;
-   }
-   return -1;
-}
+const int maxn =4010000;
+int n;
+int dp[maxn];
+// int jia[maxn];
 void work()
 {
+    cin>>n>>mod;
+    dp[1]=1;
+    for(int i=1;i<=n;i++){
+        // int now=(dp[i]+)%mod;
+        dp[i]=(dp[i]+dp[i-1])%mod;
+        for(int j=2;i*j<=n;j++){
+            dp[i*j]+=dp[i]*(j);
+            dp[i*j]%=mod;
+        }
+        // dp[i]=dp[i-1]+}
+//    int j,r;
+    }
+    cout<<dp[n]<<endll;
 }
 signed main()
 {
    #ifndef ONLINE_JUDGE
-   //freopen("in.txt","r",stdin);
-   //freopen("out.txt","w",stdout);
+//    freopen("in.txt","r",stdin);
+    //freopen("out.txt","w",stdout);
 #endif
-   //std::ios::sync_with_stdio(false);
-   //cin.tie(NULL);
-   int t = 1;
-   //cin>>t;
-   while (t--)
-   {
-      work();
-   }
-   return 0;
+    //std::ios::sync_with_stdio(false);
+    //cin.tie(NULL);
+    int t = 1;
+    //cin>>t;
+    while (t--)
+    {
+        work();
+    }
+    return 0;
 }

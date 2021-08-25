@@ -79,52 +79,50 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
-const int maxn = 510000;
-int nxt[210000];
-inline void cal_next(string &str)
-{
-   nxt[0] = -1;
-   int k = -1;
-   for (int q = 1; q < str.size(); q++)
-   {
-      while (k > -1 && str[k + 1] != str[q])
-         k = nxt[k];
-      if (str[k + 1] == str[q])
-      k = k + 1;
-   nxt[q] = k;
-   }
-}
-int KMP(string &a, string &b)
-{
-   cal_next(b);
-   int k = -1;
-   for (int i = 0; i < a.size(); i++)
-   {
-      while (k > -1 && b[k + 1] != a[i])
-         k = nxt[k];
-      if (b[k + 1] == a[i])
-         k = k + 1;
-      if (k == b.size() - 1)
-         return i;
-   }
-   return -1;
-}
+const int maxn = 2210;
+int n,date[maxn];
 void work()
 {
+    cin>>n;
+    vector<int> ans;
+    for(int i=1;i<=n;i++)
+        cin>>date[i];
+    for(int i=n;i>=1;i-=2){
+        int j;
+        for(j=1;j<=n;j++)
+            if(date[j]==i)
+                break;
+        if(j==i)
+            continue;
+        if(j%2==0){
+            cout<<-1<<endl;
+            return;
+        }
+        ans.push_back(j);
+        reverse(date+1,date+1+j);
+        ans.push_back(i);
+        reverse(date+1,date+i+1);
+    }
+    for(int i=1;i<=n;i++){
+        if(i!=date[i]){
+            cout<<-1<<endl;
+            return;
+        }
+    }
+    cout<<ans.size()<<endl;
+    for(int i=0;i<ans.size();i++)   
+        cout<<ans[i]<<' ';
+    cout<<endl;
 }
 signed main()
 {
-   #ifndef ONLINE_JUDGE
-   //freopen("in.txt","r",stdin);
-   //freopen("out.txt","w",stdout);
-#endif
-   //std::ios::sync_with_stdio(false);
-   //cin.tie(NULL);
-   int t = 1;
-   //cin>>t;
-   while (t--)
-   {
-      work();
-   }
-   return 0;
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t = 1;
+    cin>>t;
+    while (t--)
+    {
+        work();
+    }
+    return 0;
 }
