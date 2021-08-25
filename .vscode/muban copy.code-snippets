@@ -73,7 +73,10 @@
     		"//cin>>t;",
     		"while (t--)",
     		"{",
-        	"work();",
+        	"for(int i=1;i<=t;i++){",
+			"	//cout<<\"Case #\"<<i<<\":\"<<endll;",
+			"	work();",
+			"}",
     		"}",
     		"return 0;",
 			"}"
