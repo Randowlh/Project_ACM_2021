@@ -131,7 +131,6 @@ void work()
     for(int i=l;i<=r;i++)
         move(i,1);
     ans[qr[1].num]=calc(qr[1].yr)-calc(qr[1].yl-1);
-    // cout<<l<<' '<<r<<endl;
     for(int i=2;i<=m;i++){
         while(l>qr[i].l)move(--l,1);
         while(r<qr[i].r)move(++r,1);
@@ -140,7 +139,7 @@ void work()
         ans[qr[i].num]=calc(qr[i].yr)-calc(qr[i].yl-1);
     }
     for(int i=1;i<=m;i++)
-        cout<<ans[i]<<endl;
+        cout<<ans[i]<<'\n';
 }
 signed main()
 {

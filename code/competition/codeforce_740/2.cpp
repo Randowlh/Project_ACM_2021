@@ -4,8 +4,8 @@
 //using namespace __gnu_cxx;
 using namespace std;
 #pragma optimize(3)
-// #pragma GCC optimize("Ofast,no-stack-protector")
-// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
+#pragma GCC optimize("Ofast,no-stack-protector")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
 #define rbset(T) tree<T,null_type,less<T>,rb_tree_tag,tree_order_statistics_node_update>
 const int inf = 0x7FFFFFFF;
 typedef long long ll;
@@ -51,7 +51,7 @@ print(oth...);
 #define flush FastIO::flush
 #define spt fixed<<setprecision
 #define endll '\n'
-#define mul(a,b,mod) (ll)(a)*(b)%(mod) 
+#define mul(a,b,mod) (__int128)(a)*(b)%(mod) 
 #define pii(a,b) pair<a,b>
 #define pow powmod
 #define X first
@@ -67,7 +67,7 @@ print(oth...);
 #define yn A_muban_for_ACM
 #define j1 it_is just_an_eastegg
 #define lr hope_you_will_be_happy_to_see_this
-// #define int long long
+#define int long long
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
 const ll llinf = 4223372036854775851;
@@ -80,24 +80,26 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn =4010000;
+// int tree[maxn];
 int n;
 int dp[maxn];
-// int jia[maxn];
+int jia[maxn];
 void work()
 {
     cin>>n>>mod;
-    dp[1]=1;
-    for(int i=1;i<=n;i++){
-        // int now=(dp[i]+)%mod;
-        dp[i]=(dp[i]+dp[i-1])%mod;
-        for(int j=2;i*j<=n;j++){
-            dp[i*j]+=dp[i]*(j);
-            dp[i*j]%=mod;
+    dp[n]=1;
+    for(int i=n;i>=1;i--){
+        int now=(dp[i]+jia[i])%mod;
+        int j;
+        int r;
+        for(j=2;j<=i;j=r+1){
+            r=i/(i/j);
+            dp[i/j]+=now*(r-j+1)%mod;
+            dp[i/j]%=mod;
         }
-        // dp[i]=dp[i-1]+}
-//    int j,r;
+        jia[i-1]=(now+jia[i])%mod;
     }
-    cout<<dp[n]<<endll;
+    cout<<(jia[1]+dp[1])%mod<<endll;
 }
 signed main()
 {
