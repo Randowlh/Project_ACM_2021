@@ -80,25 +80,41 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
+map<int,int> M;
+int calc(int i){
+    int cnt=1;
+    int ans=0;
+    while(i){
+        if(i&1) 
+            ans+=cnt*cnt;
+        else ans-=cnt*cnt;
+        cnt++;
+        i>>=1;
+    }
+    return ans;
+}
 void work()
 {
-    int t;
-    while(cin>>t){
-       if(t<-1){
-          cout<<"Error"<<endl;
-       }
+    for(int i=1;i<(1<<30);i++){
+        int t=calc(i);
+        if(M.count(t))
+            MIN(M[t],i);
+        else M[t]=i;
+    }
+    for(int i=0;i<=25;i++){
+        cout<<M[1<<i]<<endl;
     }
 }
 signed main()
 {
    #ifndef ONLINE_JUDGE
-   freopen("1.out","r",stdin);
+   //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    //std::ios::sync_with_stdio(false);
-    //cin.tie(NULL);
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
     int t = 1;
-    //cin>>t;
+    // cin>>t;
     for(int i=1;i<=t;i++){
         //cout<<"Case #"<<i<<":"<<endll;
         work();

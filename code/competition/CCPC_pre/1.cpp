@@ -82,23 +82,26 @@ const int maxm= 1;
 const int maxn = 510000;
 void work()
 {
-    int t;
-    while(cin>>t){
-       if(t<-1){
-          cout<<"Error"<<endl;
-       }
-    }
+    int n;
+    cin>>n;
+    int ans=0;
+    int t=(int)(ceil(n/3.0));
+    if(t%2==0)
+        t++;
+    ans+=(n-t)/2+1;
+    ans+=n-n/2;
+    cout<<ans<<endll;
 }
 signed main()
 {
    #ifndef ONLINE_JUDGE
-   freopen("1.out","r",stdin);
+   //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    //std::ios::sync_with_stdio(false);
-    //cin.tie(NULL);
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
     int t = 1;
-    //cin>>t;
+    cin>>t;
     for(int i=1;i<=t;i++){
         //cout<<"Case #"<<i<<":"<<endll;
         work();
