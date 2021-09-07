@@ -80,40 +80,36 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int dp[maxn];
+int date[]={0,7,27,41,49,63,78,108};
 void work()
 {
-	int n,v;
-	cin>>n>>v;
-	dp[0]=1;
-	for(int j=1;j<=n;j++){
-		int tmp;
-		cin>>tmp;
-		for(int i=v;i>=tmp;i--)
-			if(dp[i-tmp])
-				dp[i]=1;
-	}
-	int ans=0;
-	for(int i=v;i>0;i--){
-		if(dp[i])
-			break;
-		ans++;
-	}
-	cout<<ans<<endll;
+    int n;
+    cin>>n;
+    int tot=0;
+    int tmp;
+    for(int i=1;i<=n;i++)
+        cin>>tmp,tot+=date[tmp];
+    if(tot>=120){
+        tot-=50;
+    }else if(tot>=89){
+        tot-=30;
+    }else if(tot>=69)
+        tot-=15;
+    cout<<tot<<endll;
 }
 signed main()
 {
    #ifndef ONLINE_JUDGE
    //freopen("in.txt","r",stdin);
-	//freopen("out.txt","w",stdout);
+    //freopen("out.txt","w",stdout);
 #endif
-	//std::ios::sync_with_stdio(false);
-	//cin.tie(NULL);
-	int t = 1;
-	//cin>>t;
-	for(int i=1;i<=t;i++){
-		//cout<<"Case #"<<i<<":"<<endll;
-		work();
-	}
-	return 0;
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t = 1;
+    cin>>t;
+    for(int i=1;i<=t;i++){
+        //cout<<"Case #"<<i<<":"<<endll;
+        work();
+    }
+    return 0;
 }

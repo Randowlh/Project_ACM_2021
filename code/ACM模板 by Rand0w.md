@@ -85,6 +85,7 @@ template<class T>inline void rd(T &x){
    while(o=getchar(),o>47);
    x*=f;
 }
+
 template<class T>
 void wt(T x){
    if(x < 0) putchar('-'), x = -x;
@@ -104,6 +105,7 @@ void wt(T x){
 ### 模拟退火
 
 ``` c++
+int aa=0;
 double ans=0;
 double stemp=1997;
 double delta=0.997;

@@ -13,7 +13,7 @@ typedef double db;
 typedef long double ld;
 template<class T>inline void MAX(T &x,T y){if(y>x)x=y;}
 template<class T>inline void MIN(T &x,T y){if(y<x)x=y;}
-namespace FastIO
+namespace F astIO
 {
 char buf[1 << 21], buf2[1 << 21], a[20], *p1 = buf, *p2 = buf, hh = '\n';
 int p, p3 = -1;
@@ -79,41 +79,43 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
-const int maxn = 510000;
-int dp[maxn];
+const int maxn = 51000;
+int pre[maxn+100];
+inline int niyuan(int x, int mod) { return powmod(x, mod - 2); }
+void init(){
+    pre[0]=1;
+    for(int i=1;i<=maxn;i++)
+        pre[i]=pre[i-1]*i%mod;
+}
+int C(int n,int m){
+    if(n<m)
+        return 0;
+    return pre[n]*powmod(pre[n-m],mod-2)%mod*powmod(pre[m],mod-2)%mod;
+}
 void work()
 {
-	int n,v;
-	cin>>n>>v;
-	dp[0]=1;
-	for(int j=1;j<=n;j++){
-		int tmp;
-		cin>>tmp;
-		for(int i=v;i>=tmp;i--)
-			if(dp[i-tmp])
-				dp[i]=1;
-	}
-	int ans=0;
-	for(int i=v;i>0;i--){
-		if(dp[i])
-			break;
-		ans++;
-	}
-	cout<<ans<<endll;
+    int n;
+    cin>>n;
+    int ans=0;
+    for(int i=0;i<=n;i++){
+        ans+=n*C(n*n - i,n - 1)%mod;
+    }
+    cout<<ans<<endll;
 }
 signed main()
 {
+    init();
    #ifndef ONLINE_JUDGE
    //freopen("in.txt","r",stdin);
-	//freopen("out.txt","w",stdout);
+    //freopen("out.txt","w",stdout);
 #endif
-	//std::ios::sync_with_stdio(false);
-	//cin.tie(NULL);
-	int t = 1;
-	//cin>>t;
-	for(int i=1;i<=t;i++){
-		//cout<<"Case #"<<i<<":"<<endll;
-		work();
-	}
-	return 0;
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t = 1;
+    cin>>t;
+    for(int i=1;i<=t;i++){
+        //cout<<"Case #"<<i<<":"<<endll;
+        work();
+    }
+    return 0;
 }

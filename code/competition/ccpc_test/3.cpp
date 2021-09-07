@@ -79,41 +79,78 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
-const int maxn = 510000;
-int dp[maxn];
+const int maxn = 210000;
+struct eg{
+    int fr,to,v;
+    bool operator<(const eg a){
+        return v>a.v;
+    }
+}date[maxn];
+int num[maxn];
+int fa[maxn];
+int sz[maxn];
+int find(int x){if(fa[x]^x)return fa[x]=find(fa[x]);return x;}
+void merge(int a,int b){
+    // cout<<"merge="<<find(a)<<' '<<find(b)<<endl;
+    // cout<<sz[find(a)]<<' '<<sz[find(b)]<<endl;
+    sz[find(a)]+=sz[find(b)];
+    fa[find(b)]=find(a);
+}
+    // cout<<sz[find(a)]<<' '<<sz[find(b)]<<endl;}
+int ans[maxn];
 void work()
-{
-	int n,v;
-	cin>>n>>v;
-	dp[0]=1;
-	for(int j=1;j<=n;j++){
-		int tmp;
-		cin>>tmp;
-		for(int i=v;i>=tmp;i--)
-			if(dp[i-tmp])
-				dp[i]=1;
-	}
-	int ans=0;
-	for(int i=v;i>0;i--){
-		if(dp[i])
-			break;
-		ans++;
-	}
-	cout<<ans<<endll;
+{ 
+    int n,m,q;
+    cin>>n>>m>>q;
+    for(int i=1;i<=n;i++)
+        fa[i]=i,sz[i]=1;
+    for(int i=1;i<=m;i++)
+        cin>>date[i].fr>>date[i].to>>date[i].v;
+    sort(date+1,date+m+1);
+    int now=0;
+    for(int i=1;i<=m;i++){
+        // cout<<date[i].v<<endll;
+        if(find(date[i].fr)==find(date[i].to)){
+            ans[i]=now;
+        }else{
+            // cout<<find(date[i].fr)<<' '<<find(date[i].to)<<endll;
+            // cout<<"adssadadsads"<<endll;
+            // cout<<now<<endll;
+            // cout<<sz[find(date[i].fr)]<<' '<<sz[find(date[i].to)]<<endll;
+            now+=sz[find(date[i].fr)]*sz[find(date[i].to)];
+            ans[i]=now;
+            merge(date[i].fr,date[i].to);
+        }
+    }
+    // for(int i=1;i<=n;i++)
+    //     cout<<"sz[i]="<<sz[i]<<endll;
+    reverse(date+1,date+m+1);
+    reverse(ans+1,ans+m+1);
+    for(int i=1;i<=m;i++)
+        num[i]=date[i].v;
+    ans[m+1]=0;
+    num[m+1]=llinf;
+    ans[0]=now;
+    num[0]=-llinf;
+    for(int i=1;i<=q;i++){
+        int tmp;
+        cin>>tmp;
+        cout<<ans[lower_bound(num+1,num+m+1,tmp)-num]<<endll;
+    }
 }
 signed main()
 {
    #ifndef ONLINE_JUDGE
    //freopen("in.txt","r",stdin);
-	//freopen("out.txt","w",stdout);
+    //freopen("out.txt","w",stdout);
 #endif
-	//std::ios::sync_with_stdio(false);
-	//cin.tie(NULL);
-	int t = 1;
-	//cin>>t;
-	for(int i=1;i<=t;i++){
-		//cout<<"Case #"<<i<<":"<<endll;
-		work();
-	}
-	return 0;
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t = 1;
+    cin>>t;
+    for(int i=1;i<=t;i++){
+        //cout<<"Case #"<<i<<":"<<endll;
+        work();
+    }
+    return 0;
 }
