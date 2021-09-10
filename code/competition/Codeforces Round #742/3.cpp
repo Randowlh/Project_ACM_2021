@@ -101,6 +101,7 @@ void work()
     }
     cout<<nn[0]*nn[1]+2*nn[0]+2*nn[1]+2<<endll;
 }
+
 signed main()
 {
    #ifndef ONLINE_JUDGE

@@ -80,26 +80,79 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int dp[maxn];
+struct segtree{
+	int seg[maxn<<2];
+	int lazy[maxn<<2];
+	inline void pushup(int x){
+		seg[x]=seg[lson(x)]+seg[rson(x)];
+	}
+	inline void pushdown(int l,int r,int x){
+		if(!lazy[x])
+		return;
+		int mid=l+r>>1;
+		seg[lson(x)]+=lazy[x]*(mid-l+1);
+		lazy[lson(x)]+=lazy[x];
+		lazy[rson(x)]+=lazy[x];
+		seg[rson(x)]+=lazy[x]*(r-mid);
+		lazy[x]=0;
+	}
+	void build(int a[],int x,int l,int r){
+		lazy[x]=0;
+		if(l==r){
+			seg[x]=a[l];
+			return;	
+		}
+		int mid=l+r>>1;
+		build(a,lson(x),l,mid);
+		build(a,rson(x),mid+1,r);
+		pushup(x);
+	}
+	void update(int x,int l,int r,int ql,int qr,int v){
+		if(l>=ql&&r<=qr){
+			seg[x]+=(r-l+1)*v;
+			lazy[x]+=v;
+			return;
+		}
+		pushdown(l,r,x);
+		int mid=(l+r)>>1;
+		if(ql<=mid)
+			update(lson(x),l,mid,ql,qr,v);
+		if(qr>mid)
+			update(rson(x),mid+1,r,ql,qr,v);
+		pushup(x);
+	}
+	int query(int x,int l,int r,int ql,int qr){
+		if(ql<=l&&qr>=r)
+			return seg[x];
+		int mid=l+r>>1,ans=0;
+		pushdown(l,r,x);
+		if(ql<=mid)
+			ans+=query(lson(x),l,mid,ql,qr);
+		if(qr>mid)
+			ans+=query(rson(x),mid+1,r,ql,qr);
+		return ans;
+	}
+}tree;
+int date[maxn];
 void work()
 {
-	int n,v;
-	cin>>n>>v;
-	dp[0]=1;
-	for(int j=1;j<=n;j++){
-		int tmp;
-		cin>>tmp;
-		for(int i=v;i>=tmp;i--)
-			if(dp[i-tmp])
-				dp[i]=1;
+	int n,m;
+	read(n,m);
+	for(int i=1;i<=n;i++)
+		read(date[i]);
+	tree.build(date,1,1,n);
+	for(int i=1;i<=m;i++){
+		int opt,a,b,c;
+		read(opt);
+		if(opt^1){
+			read(a,b);
+			print(tree.query(1,1,n,a,b));
+		}else {
+			read(a,b,c);
+			tree.update(1,1,n,a,b,c);
+		}
 	}
-	int ans=0;
-	for(int i=v;i>0;i--){
-		if(dp[i])
-			break;
-		ans++;
-	}
-	cout<<ans<<endll;
+	flush();
 }
 signed main()
 {
