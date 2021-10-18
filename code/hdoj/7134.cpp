@@ -78,48 +78,48 @@ const int m1 = 998244353;
 const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
-const int maxm= 1;
-const int maxn = 510000;
-int nxt[2100000];
-inline void cal_next(string &str)
-{
-    nxt[0] = -1;
-    int k = -1;
-    for (int q = 1; q < str.size(); q++)
-    {
-        while (k > -1 && str[k + 1] != str[q])
-            k = nxt[k];
-        if (str[k + 1] == str[q])
-        k = k + 1;
-    nxt[q] = k;
+const int maxm= 210000;
+const int maxn = 110000;
+struct edge{
+   int w,to,nxt;
+}eg[maxm];
+int head[maxn];
+int ecnt=0;
+inline void add(int u,int v,int w){
+   eg[++ecnt].nxt=head[u];
+   eg[ecnt].w=w;
+   eg[ecnt].to=v;
+   head[u]=ecnt;
+}
+int n,m;
+int dis[maxn];
+void dij(int a){
+   for(int i=1;i<=n;i++)
+      dis[i]=llinf;
+   dis[a]=0;
+   priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>>q;
+   q.push(pair<int,int>(0,a));
+   while(!q.empty()){
+      pair<int,int> t=q.top();
+      q.pop();
+      if(dis[t.second]<t.first)
+         continue;
+        for(int i=head[t.second];i;i = eg[i].nxt){
+            int& to=eg[i].to;
+            if(eg[i].w+dis[t.second]<dis[to]){
+                dis[to]=eg[i].w+dis[t.second];
+                q.push(make_pair(dis[to],to));
+            }
+        }
     }
 }
-vector<int> ans;
-int KMP(string &a, string &b)
-{
-    cal_next(b);
-    int k = -1;
-    for (int i = 0; i < a.size(); i++)
-    {
-        while (k > -1 && b[k + 1] != a[i])
-            k = nxt[k];
-        if (b[k + 1] == a[i])
-            k = k + 1;
-        if (k == b.size() - 1)
-            ans.push_back(i-b.size()+2);
-    }
-    return -1;
-}
-string a,b;
 void work()
 {
-    cin>>a>>b;
-    KMP(a,b);
-    for(int i=0;i<ans.size();i++) 
-        cout<<ans[i]<<endl;
-    for(int i=0;i<b.size();i++)
-        cout<<nxt[i]+1<<' ';
-    cout<<endl;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++)
+        head[i]=0;
+    ecnt=0;
+    
 }
 signed main()
 {
@@ -130,7 +130,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin>>t;
+    cin>>t;
     for(int i=1;i<=t;i++){
         //cout<<"Case #"<<i<<":"<<endll;
         work();

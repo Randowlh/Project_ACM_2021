@@ -80,46 +80,43 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int nxt[2100000];
-inline void cal_next(string &str)
-{
-    nxt[0] = -1;
-    int k = -1;
-    for (int q = 1; q < str.size(); q++)
-    {
-        while (k > -1 && str[k + 1] != str[q])
-            k = nxt[k];
-        if (str[k + 1] == str[q])
-        k = k + 1;
-    nxt[q] = k;
+int n;
+int x,flr;
+
+int work(){
+    cin>>n;
+    int tmp = (int)(floor(sqrt(n))) ;
+    flr = (int)( floor(n-3*sqrt(n)) );
+
+    rep(x,tmp-2,tmp+2){
+        if(flr<(x-1)*x&&x*(x+1)<n){
+            cout<<(x-1)*x<<' '<<x*x-1<<' '<<x*x<<' '<<x*(x+1)<<endll;
+        } return 1;
     }
-}
-vector<int> ans;
-int KMP(string &a, string &b)
-{
-    cal_next(b);
-    int k = -1;
-    for (int i = 0; i < a.size(); i++)
-    {
-        while (k > -1 && b[k + 1] != a[i])
-            k = nxt[k];
-        if (b[k + 1] == a[i])
-            k = k + 1;
-        if (k == b.size() - 1)
-            ans.push_back(i-b.size()+2);
+    // int cnt = 0;
+
+    //type 2
+    //(x-2)(x-1) (x-2)x (x-1)x xx
+    rep(x,tmp-2,tmp+2){
+        if(flr<(x-2)*(x-1)&&x*x<n){
+            cout<<(x-2)*(x-1)<<' '<<(x-2)*x<<' '<<(x-1)*x<<' '<<x*x<<endll;
+            return 1;
+        }
     }
-    return -1;
-}
-string a,b;
-void work()
-{
-    cin>>a>>b;
-    KMP(a,b);
-    for(int i=0;i<ans.size();i++) 
-        cout<<ans[i]<<endl;
-    for(int i=0;i<b.size();i++)
-        cout<<nxt[i]+1<<' ';
-    cout<<endl;
+    //type 3
+    //xx x(x+1) x(x+2) (x+1)(x+2)
+    rep(x,tmp-2,tmp+2){
+        if(flr<x*x&&(x+1)*(x+2)<n){ 
+        cout<<(x*x)<<' '<<x*(x+1)<<' '<<x*(x+2)<<' '<<(x+1)*(x+2)<<endll;    
+        return 1;
+        }
+    }
+
+    //type 4
+    //(x-2)*x (x-2)(x+1) (x-1)x (x-1)(x+1)
+    rep(x,tmp-2,tmp+2){
+        if(flr<x*(x-2)&&(x-1)*(x+1)<n) return 1;
+    return 0;
 }
 signed main()
 {
@@ -130,7 +127,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin>>t;
+    cin>>t;
     for(int i=1;i<=t;i++){
         //cout<<"Case #"<<i<<":"<<endll;
         work();

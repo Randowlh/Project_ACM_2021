@@ -79,47 +79,45 @@ const int m2 = 1000001011;
 const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
-const int maxn = 510000;
-int nxt[2100000];
-inline void cal_next(string &str)
-{
-    nxt[0] = -1;
-    int k = -1;
-    for (int q = 1; q < str.size(); q++)
-    {
-        while (k > -1 && str[k + 1] != str[q])
-            k = nxt[k];
-        if (str[k + 1] == str[q])
-        k = k + 1;
-    nxt[q] = k;
+const int maxn = 1010000;
+int seg[maxn<<2];
+void update(int pos,int l,int r,int ql,int qr,int v){
+    // cout<<pos<<' '<<l<<' '<<r<<' '<<ql<<' '<<qr<<' '<<v<<endl;
+    if(l>=ql&&r<=qr){
+        MAX(seg[pos],v);
+        return;
     }
+    int mid=(l+r)>>1;
+    if(mid>=ql)
+        update(lson(pos),l,mid,ql,qr,v);
+    if(mid<qr)
+        update(rson(pos),mid+1,r,ql,qr,v);
 }
-vector<int> ans;
-int KMP(string &a, string &b)
-{
-    cal_next(b);
-    int k = -1;
-    for (int i = 0; i < a.size(); i++)
-    {
-        while (k > -1 && b[k + 1] != a[i])
-            k = nxt[k];
-        if (b[k + 1] == a[i])
-            k = k + 1;
-        if (k == b.size() - 1)
-            ans.push_back(i-b.size()+2);
-    }
-    return -1;
+int query(int pos,int l,int r,int pp){
+    if(l==r)
+        return seg[pos];
+    int mid=(l+r)>>1;
+    if(mid>=pp)
+        return max(query(lson(pos),l,mid,pp),seg[pos]);
+    else return max(query(rson(pos),mid+1,r,pp),seg[pos]);
 }
-string a,b;
 void work()
 {
-    cin>>a>>b;
-    KMP(a,b);
-    for(int i=0;i<ans.size();i++) 
-        cout<<ans[i]<<endl;
-    for(int i=0;i<b.size();i++)
-        cout<<nxt[i]+1<<' ';
-    cout<<endl;
+    int n;
+    int a,b;
+    cin>>n;
+    int a1=0,a2=0;
+    for(int i=1;i<=n;i++){
+        cin>>a>>b;
+        a1+=a;
+        a2+=b;
+        // cout<<"a="<<a<<' '<<b<<endl;
+        update(1,1,1e6,1,b,a);
+    }
+    int a3=0;
+    for(int i=1;i<=1e6;i++)
+        a3+=query(1,1,1e6,i);
+    cout<<max(a1,max(a2,a3))<<endll;
 }
 signed main()
 {

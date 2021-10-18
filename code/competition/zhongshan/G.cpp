@@ -80,46 +80,19 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int nxt[2100000];
-inline void cal_next(string &str)
-{
-    nxt[0] = -1;
-    int k = -1;
-    for (int q = 1; q < str.size(); q++)
-    {
-        while (k > -1 && str[k + 1] != str[q])
-            k = nxt[k];
-        if (str[k + 1] == str[q])
-        k = k + 1;
-    nxt[q] = k;
-    }
-}
-vector<int> ans;
-int KMP(string &a, string &b)
-{
-    cal_next(b);
-    int k = -1;
-    for (int i = 0; i < a.size(); i++)
-    {
-        while (k > -1 && b[k + 1] != a[i])
-            k = nxt[k];
-        if (b[k + 1] == a[i])
-            k = k + 1;
-        if (k == b.size() - 1)
-            ans.push_back(i-b.size()+2);
-    }
-    return -1;
-}
-string a,b;
+vector<pair<int,int>> ans;
+stack<int> s[3];
 void work()
 {
-    cin>>a>>b;
-    KMP(a,b);
-    for(int i=0;i<ans.size();i++) 
-        cout<<ans[i]<<endl;
-    for(int i=0;i<b.size();i++)
-        cout<<nxt[i]+1<<' ';
-    cout<<endl;
+    int n;
+    cin>>n;
+    int tmp;
+    for(int i=1;i<=n;i++){
+        cin>>tmp;
+        s[0].push(tmp);
+    }
+    int now=0;
+    
 }
 signed main()
 {
@@ -127,10 +100,10 @@ signed main()
    //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 #endif
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
+    //std::ios::sync_with_stdio(false);
+    //cin.tie(NULL);
     int t = 1;
-    // cin>>t;
+    //cin>>t;
     for(int i=1;i<=t;i++){
         //cout<<"Case #"<<i<<":"<<endll;
         work();

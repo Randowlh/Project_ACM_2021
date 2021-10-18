@@ -71,7 +71,7 @@ print(oth...);
 #define rep(i, a, n) for (register int i = a; i <= n; ++i)
 #define per(i, a, n) for (register int i = n; i >= a; --i)
 const ll llinf = 4223372036854775851;
-const ll mod = (0 ? 1000000007 : 998244353);
+const ll mod = 1000000;
 ll pow(ll a,ll b,ll md=mod) {ll res=1;a%=md; assert(b>=0); for(;b;b>>=1){if(b&1)res=mul(res,a,md);a=mul(a,a,md);}return res;}
 const ll mod2 = 999998639;
 const int m1 = 998244353;
@@ -80,46 +80,11 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-int nxt[2100000];
-inline void cal_next(string &str)
-{
-    nxt[0] = -1;
-    int k = -1;
-    for (int q = 1; q < str.size(); q++)
-    {
-        while (k > -1 && str[k + 1] != str[q])
-            k = nxt[k];
-        if (str[k + 1] == str[q])
-        k = k + 1;
-    nxt[q] = k;
-    }
-}
-vector<int> ans;
-int KMP(string &a, string &b)
-{
-    cal_next(b);
-    int k = -1;
-    for (int i = 0; i < a.size(); i++)
-    {
-        while (k > -1 && b[k + 1] != a[i])
-            k = nxt[k];
-        if (b[k + 1] == a[i])
-            k = k + 1;
-        if (k == b.size() - 1)
-            ans.push_back(i-b.size()+2);
-    }
-    return -1;
-}
-string a,b;
 void work()
 {
+    int a,b;
     cin>>a>>b;
-    KMP(a,b);
-    for(int i=0;i<ans.size();i++) 
-        cout<<ans[i]<<endl;
-    for(int i=0;i<b.size();i++)
-        cout<<nxt[i]+1<<' ';
-    cout<<endl;
+    cout<<(mod-((a+b)%mod))%mod<<endl;;
 }
 signed main()
 {
@@ -130,7 +95,7 @@ signed main()
     std::ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin>>t;
+    cin>>t;
     for(int i=1;i<=t;i++){
         //cout<<"Case #"<<i<<":"<<endll;
         work();
