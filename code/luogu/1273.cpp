@@ -98,12 +98,26 @@ inline void cl(int n){
 }
 int n,m;
 int dp[maxn][maxn];
-int sz[maxn];
+int sz[maxn],date[maxn];
 void dfs(int pos,int fa){
-    
+    sz[pos]=1;
+    if(!head[pos]){
+        dp[pos][1]=date[pos];
+        return;
+    }
+    for(int i=head[pos];i;i=eg[i].nxt){
+        int to=eg[i].to,w=eg[i].w;
+        dfs(to,pos);
+        sz[pos]+=sz[to];
+        for(int i=sz[pos];i>=0;i--)
+            for(int j=1;j<=sz[to];j++)
+                if(i>=j)
+                    MAX(dp[pos][i],dp[pos][i-j]+dp[to][j]-w);
+    }
 }
 void work()
 {
+    memset(dp,192,sizeof dp);
     cin>>n>>m;
     for(int i=1;i<=n-m;i++){
         int k;
@@ -114,7 +128,16 @@ void work()
             add(i,v,w);
         }
     }
+    for(int i=n-m+1;i<=n;i++)
+        cin>>date[i];
+    for(int i=1;i<=n;i++)
+        dp[i][0]=0;
     dfs(1,1);
+    for(int i=3000;i>=1;i--)
+        if(dp[1][i]>=0){
+            cout<<i<<endl;
+            return;
+        }
 }
 signed main()
 {
