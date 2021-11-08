@@ -10,6 +10,8 @@ const int N = 2e5+10;
 const int mod =1e9+7;
 
 int ci[N];
+
+
 bitset<N> bst,b2;
 int n;
 void cal(int d){
