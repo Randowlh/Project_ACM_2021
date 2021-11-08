@@ -4,7 +4,7 @@ const int inf =0x7FFFFFFF;
 typedef long long ll;
 int mp[60][60];
 int n;
-int mx=0;
+int mx=0;//ans
 vector<int> tmp;
 bool check(int now){
     bool fl=true;
@@ -32,7 +32,6 @@ void dfs(int step){
         tmp.pop_back();
     }
         dfs(step+1);
-
 }
 void work(){
 //    int n;
