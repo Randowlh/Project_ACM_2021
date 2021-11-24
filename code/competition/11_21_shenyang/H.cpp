@@ -16,7 +16,6 @@ void add(int u,int v,int w){
     head[u]=ecnt;
 }
 int ans=1e9+10;
-stack<int>st;
 void tarjan(int pos,int fa,int w){
     int now=++mcnt;
     dfn[pos]=low[pos]=++cnt;
@@ -28,8 +27,10 @@ void tarjan(int pos,int fa,int w){
             tarjan(to,pos,egs[i].w);
             low[pos]=min(low[pos],low[to]);
         }else{ 
-            ans=min(ans,egs[i].w);
-            mcnt++;
+            if(dfn[to]>dfn[pos]){
+                ans=min(ans,egs[i].w);
+                mcnt++;
+            }
             low[pos]=min(low[pos],dfn[to]);
         }
     }
@@ -55,6 +56,5 @@ int main(){
         cout<<tot<<endl;
     }else 
     cout<<tot-ans<<endl;
-    // cout<<"ans="<<ans<<endl;
 }
 
