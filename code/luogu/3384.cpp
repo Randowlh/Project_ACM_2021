@@ -159,6 +159,16 @@ inline int tree_path_sum(int u, int v)
 }
 inline void sub_tree_add(int x, int v) { update(1, dfn[x], chu[x], v); }
 inline int sub_tree_sum(int x) { return query(1, dfn[x], chu[x]); }
+int getlca(int u,int v){
+    while(tree[u].top!=tree[v].top){
+        if(tree[tree[u].top].depth<tree[tree[v].top].depth)
+            swap(u,v);
+        u=tree[tree[u].top].fa;
+    }
+    if(tree[u].depth<tree[v].depth)
+        swap(u,v);
+    return u;
+}
 void work()
 {
     cin >> n >> m >> root >> mod;
