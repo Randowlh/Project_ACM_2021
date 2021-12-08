@@ -4,3 +4,4 @@ find ./ -name '*.bin' -type f -print -exec rm -rf {} \;
 git add -A
 git commit -a -m 'back up'
 git push origin main 
+exit
