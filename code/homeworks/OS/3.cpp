@@ -1,100 +1,78 @@
-#include <stdio.h>
-#include <iostream>
-#include <algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-
-#define N 100
-int main()
-{
-	int max[N][N];
-	int allocation[N][N];
-	int need[N][N];
-	int available[N];
-	int v[N];
-	int m, n, n0;
-	int temp;
-
-	int finsh[N];
-	int result[N];
-	int flag = 1;
-	int p, sum;
-
-	cin >> m >> n;
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++)
-			cin >> max[i][j];
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++)
-		{
-			cin >> allocation[i][j];
-			need[i][j] = max[i][j] - allocation[i][j];
-		}
-	for (int i = 0; i < m; i++)
-		cin >> available[i];
-	cin >> n0;
-	int tt = 1;
-	for (int j = 0; j < m; j++)
-	{
-		cin >> v[j];
-		if (v[j] > available[j])
-			tt = 0;
-	}
-	if (tt = 1)
-	{
-		for (int j = 0; j < m; j++)
-		{
-			need[n0][j] = need[n0][j] - v[j];
-			available[j] -= v[j];
-			allocation[n0][j] += v[j];
-		}
-	};
-
-	for (int i = 0; i < n; i++)
-	{
-		finsh[i] = 0;
-	};
-
-	for (int k = 0; k < n; k++)
-	{
-		temp = 0x3f3f3f3f;
-		for (int i = 0; i < n; i++)
-		{
-			if (finsh[i] == 1)
-				continue;
-			sum = 0;
-			for (int j = 0; j < m; j++)
-				sum += need[i][j];
-			if (sum < temp)
-			{
-				temp = sum;
-				p = i;
-			}
-		}
-		for (int j = 0; j < m; j++)
-		{
-			if (need[p][j] > available[j])
-			{
-				cout << "unsafe" << endl;
-				return 0;
-			}
-		}
-		result[k] = p;
-		finsh[p] = 1;
-		for (int j = 0; j < m; j++)
-			available[j] += allocation[p][j];
-	}
-
-	for (int i = 0; i < n; i++)
-		if (finsh[i] == 0)
-			flag = 0;
-	if (flag == 0)
-		cout << "unsafe" << endl;
-	else
-	{
-		cout << "safe" << endl;
-		for (int i = 0; i < n; i++)
-		{
-			printf("P%02d\n", result[i]);
-		}
-	}
+struct node{
+    vector<int> need,maxed;
+    int id;
+    int flag=0;
+    bool operator<(const node a){
+        int sum=0;
+        for(int i=0;i<need.size();i++)
+            sum+=need[i];
+        int suma=0;
+        for(int i=0;i<a.need.size();i++)
+            suma+=a.need[i];
+        return sum<suma;
+    }
+};
+vector<node> v;
+vector<int> available;
+bool check(int pos){
+    for(int i=0;i<v[pos].need.size();i++)
+        if(v[pos].need[i]>available[i])
+            return false;
+    for(int i=0;i<v[pos].maxed.size();i++)
+        available[i]+=v[pos].maxed[i]-v[pos].need[i];
+    return true;
+}
+int main(){
+    int m,n;
+    cin>>m>>n;
+    int tmp;
+    for(int i=1;i<=n;i++){
+        node in;
+        in.id=i-1;
+        in.flag=0;
+        for(int j=0;j<m;j++){
+            cin>>tmp;
+            in.maxed.push_back(tmp);
+        }
+        v.push_back(in);
+    }
+    for(int i=1;i<=n;i++)
+        for(int j=0;j<m;j++){
+            cin>>tmp;
+            v[i-1].need.push_back(v[i-1].maxed[j]-tmp);
+        }
+    for(int j=0;j<m;j++){
+        cin>>tmp;
+        available.push_back(tmp);
+    }
+    vector<int> ans;
+    int fst;
+    cin>>fst;
+    int tt[1100];
+    int ff=0;
+    for(int i=0;i<m;i++){
+        cin>>tt[i];
+        if(available[i]<tt[i])
+            ff=1;
+    }
+    if(!ff){
+        for(int i=0;i<m;i++){
+            available[i]-=tt[i];
+            v[fst].need[i]-=tt[i];
+        }
+    }
+    for(int i=1;i<=n;i++){
+        sort(v.begin(),v.end());
+        if(check(i-1)){
+            ans.push_back(v[i-1].id);
+            v[i-1].flag=1;
+        }else break;
+    }
+    if(ans.size()==n){
+        cout<<"safe"<<endl;
+        for(int i=0;i<ans.size();i++)
+            printf("P%02d\n",ans[i]);
+    }else cout<<"unsafe"<<endl;
 }
