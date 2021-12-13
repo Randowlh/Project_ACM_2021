@@ -8,10 +8,10 @@ struct node{
         int sum=0;
         for(int i=0;i<need.size();i++)
             sum+=need[i];
-        int suma=0;
+        int sum1=0;
         for(int i=0;i<a.need.size();i++)
-            suma+=a.need[i];
-        return sum<suma;
+            sum1+=a.need[i];
+        return sum<sum1;
     }
 };
 vector<node> v;
@@ -63,8 +63,8 @@ int main(){
             v[fst].need[i]-=tt[i];
         }
     }
+    sort(v.begin(),v.end());
     for(int i=1;i<=n;i++){
-        sort(v.begin(),v.end());
         if(check(i-1)){
             ans.push_back(v[i-1].id);
             v[i-1].flag=1;
