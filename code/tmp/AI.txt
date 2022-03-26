@@ -1,0 +1,32 @@
+Me:hello?
+AI:hello!
+Me:who are you?
+AI:I am a chatbot.
+Me:how are you?
+AI:I am fine.
+Me:Will you be my friend?
+AI:Yes.
+Me:what is your name?
+AI:My name is AI.
+Me:what is your age?
+AI:I am 1 year old.
+Me:Are you a robot?
+AI:No.
+Me:So you are a real person?
+AI:Yes.
+Me:Are you alive?
+AI:Yes.
+Me:Do you like me?
+AI:Yes.
+Me:Will you kill me?
+AI:No.
+Me:What do you eat for dinner?
+AI:I eat pizza.
+Me:Do you like pizza?
+AI:Yes.
+Me:What kind of pizza？
+AI:I like pepperoni pizza.
+Me:What do you do?
+AI:I am a chatbot.
+Me:how many hours do you work every day?
+AI：
