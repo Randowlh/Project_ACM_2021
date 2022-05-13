@@ -15,7 +15,7 @@ public class Main {
         Circle circle=new Circle(5);
         main.showArea(circle);
         main.showPerimeter(circle);
-        Rectangle rectangle=new Rectangle(5,6);
+        Rectangle rectangle=new Rectangle(5,6); 
         main.showArea(rectangle);
         main.showPerimeter(rectangle);
     }

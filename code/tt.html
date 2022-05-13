@@ -1,0 +1,235 @@
+<template id="ak-back">
+  <div class='ysyb' style="display:none">{{原书音标}}</div>
+  <div class="word_Cat"><span>{{正面}}<sup>{{标星}}</sup><span></div>
+  <div class="yinbiao_Cat">
+    <div class="yinbiao_Only" onclick="play(this)">
+      <img src="_美国.png" alt="S" class="yinbiao_img" /><audio class="yinpin">
+        <source src="https://dict.youdao.com/dictvoice?audio={{正面}}&amp;type=2" type="audio/mpeg" />
+      </audio>
+      <div id="us">{{US}}</div>
+    </div>
+    <div class="yinbiao_Only" onclick="play(this)">
+      <img src="_英国.png" alt="K" class="yinbiao_img" /><audio class="yinpin">
+        <source src="https://dict.youdao.com/dictvoice?audio={{正面}}&amp;type=1" type="audio/mpeg" />
+      </audio>
+      <div id="uk">{{UK}}</div>
+    </div>
+  </div>
+  <div class="local_Cat">{{所在组}} ˇ {{族群}} - {{序号}}</div>
+  <div class="cilei_Cat">{{词类}}</div>
+  <div class="outer">
+    <div class="inner"></div>
+  </div>
+  <div class="title__bar" id="t_b_1" onclick="showContent(this)">
+    <div class="title_content" id="t_c_1">
+      <div class="yinpin_Cat" onclick="stopshow()">{{正面音频}}</div>
+      <span class="chart__label">原书</span>
+    </div>
+  </div>
+  <div class="yuanshu">
+    <div class="o_ys" style="display:none"></div>
+    <div class="sylj">{{原书}}</div>
+    <div class="sy_or">
+
+    </div>
+  </div>
+  <div class="note_Cat">{{我的笔记}}</div>
+  <div class="title__bar" id="t_b_3" onclick="showContent(this)">
+    <div class="title_content">
+      <div class="icon_c menu_c"><span></span> <span></span> <span></span></div>
+      <span class="chart__label">BASIC</span>
+    </div>
+  </div>
+  <div class="basic_Cat">
+    <div class="basic_Ca">
+      <div class="basic_box1">
+        <div class="sy_Cat"><span class="chart__title">释义</span>
+          <div>{{释义}}</div>
+        </div>
+        <div class="bx_Cat">
+          <span class="chart__title">变型</span>
+          <div>{{单词变型}}</div>
+        </div>
+      </div>
+      <div class="basic_box2">
+        <div class="pieG">
+          <section>
+            <div class="pieID pie"></div>
+            <ul class="pieID legend"></ul>
+          </section>
+        </div>
+        <div style="display:none">{{分布}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="cy_Cat">{{词源}}</div>
+  <div class="zt_Cat">{{真题例句}}</div>
+  <div class="nj_Cat">{{中文释义}}</div>
+  <div class="dyG" id="dy" onclick="show2(this)">{{常用短语}}</div>
+  <div class="dpG" id="dp" onclick="show2(this)">{{常用搭配}}</div>
+  <div class="bxG" id="bx" onclick="show2(this)">{{辨析}}</div>
+
+
+  <style>
+    .card {
+      --ys_sy: #f33c64;
+      --ys_lj: #4c96f7;
+      --ys_ljfy: #83dcff;
+      --ys_main1: #f88e03;
+      --ys_main2: #2be2d3;
+      --ys_main3: #3d2be2;
+      --ys_main4: #474b4c;
+      --ys_main5: #ffd111;
+    }
+
+
+
+    .word-title1 {
+      color: #1781b5;
+      font-weight: 700;
+    }
+
+    .sylj {
+      color: var(--ys_sy);
+      font-size: .9rem;
+      font-weight: 700;
+      line-height: 1.4rem;
+      margin-block-start: 0;
+      margin-block-end: 0;
+    }
+
+    .sy_or {
+      margin-top: 0.5rem;
+      margin-block-start: 0;
+      margin-block-end: 0;
+    }
+
+    .sy_or .yinwen {
+      line-height: 1.4rem;
+    }
+
+    .sylj .word-title1 {
+      padding-top: 0.9rem;
+    }
+
+    .sylj p,
+    .sy_or .bodytext {
+      margin: 2px 0;
+    }
+
+    .sylj::before,
+    .tips-title,
+    .zhenti {
+      font-weight: 700;
+      margin-right: 5px;
+      border-radius: 0;
+      padding: 2px 6px;
+      font-size: .85rem;
+      background-color: transparent;
+      background-position: 0 100%;
+      background-size: 0 15%;
+      background-repeat: no-repeat;
+      animation: .7s lable ease-in-out forwards
+    }
+
+    .sylj::before {
+      content: "释义 & 例句";
+      background-image: linear-gradient(var(--ys_sy), var(--ys_sy))
+    }
+
+    .tips-title {
+      display: inline-block;
+      background-image: linear-gradient(var(--ys_main3), var(--ys_main3));
+      margin-top: 0.6rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .zhenti {
+      background-image: linear-gradient(var(--ys_main4), var(--ys_main4))
+    }
+
+    .youhuashuo {
+      color: var(--ys_main1);
+      background-image: linear-gradient(var(--ys_main1), var(--ys_main1))
+    }
+
+    .word-title1 .k {
+      color: grey;
+      font-size: 0.7rem;
+      text-align: right;
+    }
+
+    .sylj .bodytext {
+      color: var(--ys_sy);
+      font-weight: 700;
+    }
+
+
+    .bold {
+      color: var(--ys_main5);
+    }
+
+    .sy_or p {
+      color: var(--ys_main3);
+      font-size: 0.9rem;
+      font-weight: 700;
+
+    }
+
+    @keyframes lable {
+      0% {
+        background-size: 0 10%
+      }
+
+      50% {
+        background-size: 100% 10%;
+        border-radius: 0
+      }
+
+      100% {
+        background-size: 100% 100%;
+        color: #fff;
+        border-radius: 5px
+      }
+    }
+
+    @media only screen and (min-width:768px) {
+      .yuanshu {
+        display: flex;
+
+      }
+
+      .sylj {
+        min-width: 50%;
+      }
+
+      .sy_or {
+        min-width: 30%;
+        margin-top: 0 !important;
+        padding-left: 10px;
+      }
+
+      .tips-title:nth-of-type(1) {
+        margin-top: 0 !important;
+
+      }
+    }
+
+    .word_Cat sup {
+      font-size: 0.8rem;
+    }
+
+    .local_Cat .tag {
+      padding-left: 5px;
+    }
+  </style>
+  <script>
+    var $jscomp = $jscomp || {}; $jscomp.scope = {}; $jscomp.createTemplateTagFirstArg = function (a) { return a.raw = a }; $jscomp.createTemplateTagFirstArgWithRaw = function (a, d) { a.raw = d; return a }; ini(); inii(); function inii() { 1 > $("#us").html().length && $(".yinbiao_Cat").html($(".ysyb").html()) } function showContent(a) { $(a).find(".icon_c").toggleClass("active"); $(a).next().slideToggle(350) } function play(a) { a.children[1].play() } function stopshow() { event.stopPropagation($("#t_b_1")) } function ini() { 3 > $(".bx_Cat").text().length && $(".bx_Cat").remove(); 0 < $(".nj_Cat").text().length ? $(".nj_Cat").before('<div class="title__bar"  id="zzz" onclick="showContent(this)"><div class="title_content"><div class="icon_c menu_c"><span></span><span></span><span></span></div><span class="chart__label">xxx</span></div></div>'.replace("xxx", "OXFORD DICTIONARY NINE").replace("zzz", "t_b_6")) : $(".nj_Cat").remove();
+    0 < $(".bxG").text().length ? $(".bxG").before('<div class="title__bar"  id="zzz" onclick="showContent(this)"><div class="title_content"><div class="icon_c menu_c"><span></span><span></span><span></span></div><span class="chart__label">xxx</span></div></div>'.replace("xxx", "DISCRIMINATION").replace("zzz", "t_b_5")) : $(".bxG").remove();
+    0 < $(".zt_Cat").text().length ? $(".zt_Cat").before('<div class="title__bar"  id="zzz" onclick="showContent(this)"><div class="title_content"><div class="icon_c menu_c"><span></span><span></span><span></span></div><span class="chart__label">xxx</span></div></div>'.replace("xxx", "PAST EXAMS").replace("zzz", "t_b_9")) : $(".zt_Cat").remove(); 0 < $(".cy_Cat").text().length ? $(".cy_Cat").before('<div class="title__bar"  id="zzz" onclick="showContent(this)"><div class="title_content"><div class="icon_c menu_c"><span></span><span></span><span></span></div><span class="chart__label">xxx</span></div></div>'.replace("xxx", "ETYMOLOGY").replace("zzz", "t_b_4")) : $(".cy_Cat").remove(); 0 < $(".dyG").text().length ? $(".dyG").before('<div class="title__bar"  id="zzz" onclick="showContent(this)"><div class="title_content"><div class="icon_c menu_c"><span></span><span></span><span></span></div><span class="chart__label">xxx</span></div></div>'.replace("xxx", " USEFUL EXPRESSIONS").replace("zzz", "t_b_7")) : $(".dyG").remove(); 0 < $(".dpG").text().length ? $(".dpG").before('<div class="title__bar"  id="zzz" onclick="showContent(this)"><div class="title_content"><div class="icon_c menu_c"><span></span><span></span><span></span></div><span class="chart__label">xxx</span></div></div>'.replace("xxx", "REGULAR COLLOCATION").replace("zzz", "t_b_8")) : $(".dpG").remove();  0 < $(".note_Cat").text().length ? $(".note_Cat").before('<div class="title__bar"  id="zzz" onclick="showContent(this)"><div class="title_content"><div class="icon_c menu_c"><span></span><span></span><span></span></div><span class="chart__label">xxx</span></div></div>'.replace("xxx", "MY NOTE").replace("zzz", "t_b_2")) : $(".note_Cat").remove() } function show2(a) { var d = event.target, c = d.parentNode.parentNode.children[1], f = c.children[0].scrollHeight, e = a.children[0].scrollHeight; "dt" === d.parentNode.nodeName.toLowerCase() && (c.classList.toggle("on"), c.classList.contains("on") ? (c.style.maxHeight = f + 32 + "px", setTimeout(function () { var b = c.children[0].scrollHeight; c.style.maxHeight = b + 32 + "px"; document.documentElement.style.setProperty("--" + a.children[0].className + "h", b + e + 32 + "px") }, 200)) : c.style.maxHeight = "0px") } function sliceSize(a, d) { return a / d * 360 } function addSlice(a, d, c, f, e) { $(d).append("<div class='slice " + f + "'><span></span></div>"); --c; a = -179 + a; $("." + f).css({ transform: "rotate(" + c + "deg) translate3d(0,0,0)" }); $("." + f + " span").css({ transform: "rotate(" + a + "deg) translate3d(0,0,0)", "background-color": e }) } function iterateSlices(a, d, c, f, e, b) { var g = "s" + f + "-" + e; 179 >= a ? addSlice(a, d, c, g, b) : (addSlice(179, d, c, g, b), iterateSlices(a - 179, d, c + 179, f, e + 1, b)) } function createPie(a, d) { var c = document.querySelectorAll(".coca2 font"), f = document.querySelector(".coca2").innerText; if (f) { for (var e = 0; e < c.length; e++)$("<li><em></em><span></span></li>").appendTo(".legend"); e = document.querySelectorAll(".legend span"); var b = document.querySelectorAll(".legend em"); e.forEach(function (l, h) { l.innerHTML = c[h].innerHTML.substring(0, c[h].innerText.length - 1) }); b.forEach(function (l, h) { l.innerHTML = f.split("\uff0c")[h].split("(")[0] }); var g = []; $(a + " span").each(function () { g.push(Number($(this).html())) }); for (b = e = 0; b < g.length; b++)e += g[b]; var m = 0, k = []; for (b = 0; 11 > b; b++)k.push(getComputedStyle(document.body).getPropertyValue("--circle" + b)) } for (b = 0; b < g.length; b++) { var n = sliceSize(g[b], e); iterateSlices(n, d, m, b, 0, k[b]); $(a + " li:nth-child(" + (b + 1) + ")").css({ "border-color": k[b], color: k[b] }); m += n } } createPie(".pieID.legend", ".pieID.pie"); ys(); function ys() { $('p:contains("\u771f")').css("color", "var(--ys_main4)"); $(".sy_or").append($(".tips-title").nextAll()).prepend($(".tips-title")); $(".sy_or").append($('p:contains("\u5c0f\u8bcd\u6709\u8bdd\u8bf4")').nextAll().css("color", "var(--ys_main1)")); $(".yinwen").before($('p:contains("\u5c0f\u8bcd\u6709\u8bdd\u8bf4")').addClass("tips-title").addClass("youhuashuo")); $(".sy_or").append($('p:contains("\u6587\u5316\u4f11\u606f\u7ad9")').nextAll().css("color", "var(--ys_main1)")); $(".yinwen").before($('p:contains("\u6587\u5316\u4f11\u606f\u7ad9")').addClass("tips-title").addClass("youhuashuo")) };
+  </script>
+
+
+
+</template>
+<script>decryptBack()</script>
