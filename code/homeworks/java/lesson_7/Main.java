@@ -33,76 +33,65 @@ public class Main{
         label = new JLabel("");
         frame.add(label, BorderLayout.SOUTH);
         button0 = new JButton("0");
-        button0.setFont(new Font("Arial", Font.BOLD, 20));
         button0.addActionListener(e -> {
             input += "0";
             textField.setText(input);
         });
         button1 = new JButton("1");
-        button1.setFont(new Font("Arial", Font.BOLD, 20));
         button1.addActionListener(e -> {
             input += "1";
             textField.setText(input);
         });
         //panel.add(button1);
         button2 = new JButton("2");
-        button2.setFont(new Font("Arial", Font.BOLD, 20));
         button2.addActionListener(e -> {
             input += "2";
             textField.setText(input);
         });
         //panel.add(button2);
         button3 = new JButton("3");
-        button3.setFont(new Font("Arial", Font.BOLD, 20));
         button3.addActionListener(e -> {
             input += "3";
             textField.setText(input);
         });
         //panel.add(button3);
         button4 = new JButton("4");
-        button4.setFont(new Font("Arial", Font.BOLD, 20));
         button4.addActionListener(e -> {
             input += "4";
             textField.setText(input);
         });
         //panel.add(button4);
         button5 = new JButton("5");
-        button5.setFont(new Font("Arial", Font.BOLD, 20));
         button5.addActionListener(e -> {
             input += "5";
             textField.setText(input);
         });
         //panel.add(button5);
         button6 = new JButton("6");
-        button6.setFont(new Font("Arial", Font.BOLD, 20));
         button6.addActionListener(e -> {
             input += "6";
             textField.setText(input);
         });
         //panel.add(button6);
         button7 = new JButton("7");
-        button7.setFont(new Font("Arial", Font.BOLD, 20));
         button7.addActionListener(e -> {
             input += "7";
             textField.setText(input);
         });
         //panel.add(button7);
         button8 = new JButton("8");
-        button8.setFont(new Font("Arial", Font.BOLD, 20));
         button8.addActionListener(e -> {
             input += "8";
             textField.setText(input);
         });
         //panel.add(button8);
         button9 = new JButton("9");
-        button9.setFont(new Font("Arial", Font.BOLD, 20));
         button9.addActionListener(e -> {
             input += "9";
             textField.setText(input);
         });
         //panel.add(button9);
         buttonAdd = new JButton("+");
-        buttonAdd.setFont(new Font("Arial", Font.BOLD, 20));
         buttonAdd.addActionListener(e -> {
             num1 = Double.parseDouble(input);
             input = "";
@@ -110,7 +99,6 @@ public class Main{
         });
         //panel.add(buttonAdd);
         buttonSub = new JButton("-");
-        buttonSub.setFont(new Font("Arial", Font.BOLD, 20));
         buttonSub.addActionListener(e -> {
             num1 = Double.parseDouble(input);
             input = "";
@@ -118,7 +106,6 @@ public class Main{
         });
         //panel.add(buttonSub);
         buttonMul = new JButton("*");
-        buttonMul.setFont(new Font("Arial", Font.BOLD, 20));
         buttonMul.addActionListener(e -> {
             num1 = Double.parseDouble(input);
             input = "";
@@ -126,7 +113,6 @@ public class Main{
         });
         //panel.add(buttonMul);
         buttonDiv = new JButton("/");
-        buttonDiv.setFont(new Font("Arial", Font.BOLD, 20));
         buttonDiv.addActionListener(e -> {
             num1 = Double.parseDouble(input);
             input = "";
@@ -134,7 +120,6 @@ public class Main{
         });
         //panel.add(buttonDiv);
         buttonEqual = new JButton("=");
-        buttonEqual.setFont(new Font("Arial", Font.BOLD, 20));
         buttonEqual.addActionListener(e -> {
             num2 = Double.parseDouble(input);
             switch (operator) {
@@ -153,50 +138,44 @@ public class Main{
         });
         //panel.add(buttonEqual);
         buttonClear = new JButton("C");
-        buttonClear.setFont(new Font("Arial", Font.BOLD, 20));
         buttonClear.addActionListener(e -> {
             input = "";
             textField.setText(input);
         });
-        buttonDelete = new JButton("<-");
-        buttonDelete.setFont(new Font("Arial", Font.BOLD, 20));
+        buttonDelete = new JButton("Delete");
         buttonDelete.addActionListener(e -> {
             input = input.substring(0, input.length() - 1);
             textField.setText(input);
         });
-        buttonSqrt = new JButton("sqrt");
-        buttonSqrt.setFont(new Font("Arial", Font.BOLD, 20));
+        buttonSqrt = new JButton("√");
         buttonSqrt.addActionListener(e -> {
             num1 = Double.parseDouble(input);
             input = Double.toString(Math.sqrt(num1));
             textField.setText(input);
         });
         buttonPercent = new JButton("%");
-        buttonPercent.setFont(new Font("Arial", Font.BOLD, 20));
         buttonPercent.addActionListener(e -> {
             num1 = Double.parseDouble(input);
             input = Double.toString(num1 / 100);
             textField.setText(input);
         });
         buttonDot = new JButton(".");
-        buttonDot.setFont(new Font("Arial", Font.BOLD, 20));
         buttonDot.addActionListener(e -> {
             input += ".";
             textField.setText(input);
         });
         buttonInv=new JButton("1/x");
-        buttonInv.setFont(new Font("Arial", Font.BOLD, 20));
         buttonInv.addActionListener(e -> {
             num1 = Double.parseDouble(input);
             input = Double.toString(1/num1);
             textField.setText(input);
         });
-        buttonRev=new JButton("+/-");
-        buttonRev.setFont(new Font("Arial", Font.BOLD, 20));
+        buttonRev=new JButton("C");
         buttonRev.addActionListener(e -> {
-            num1 = Double.parseDouble(input);
-            input = Double.toString(num1*-1);
-            textField.setText(input);
+            input = "";
+            textField.setText("");
+            num1=0;
+            num2=0;
         });
         gbc.ipady = 20;
         //panel.add(buttonClear);

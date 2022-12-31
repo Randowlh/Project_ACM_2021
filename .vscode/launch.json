@@ -5,6 +5,13 @@
             "type": "java",
             "name": "Launch Main",
             "request": "launch",
+            "mainClass": "Main",
+            "projectName": "Project_ACM_final_b4d57cfd"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
             "mainClass": "lesson_3.Main",
             "projectName": "Project_ACM_final_b4d57cfd"
         },
