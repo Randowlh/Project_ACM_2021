@@ -11,7 +11,7 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "/opt/homebrew/Cellar/gcc/11.2.0_3/bin/gcc-11",
+            "compilerPath": "/opt/homebrew/bin/gcc-12",
             "cStandard": "c11",
             "cppStandard": "c++20",
             "intelliSenseMode": "macos-gcc-arm",
