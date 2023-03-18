@@ -1,9 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
+int date[1100];
+char tmp;
 int main(){
-    freopen("in.txt","w",stdout);
-    cout<<5000<<endl;
-    for(int i=1;i<=5000;i++){
-        cout<<i<<" "<<i<<endl;
-    }
+int i=0;
+while(!i||cin>>tmp)
+    cin>>date[i++];
+for(int j=0;j<i;j++)
+cout<<date[j]<<endl;
 }
