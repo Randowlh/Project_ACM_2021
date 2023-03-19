@@ -80,95 +80,74 @@ const int pr=233;
 const double eps = 1e-7;
 const int maxm= 1;
 const int maxn = 510000;
-const int MAX_NODE = 210000; // 最大节点数
-const int CHARSET_SIZE = 26; // 字符集大小
-
-class AhoCorasick {
-    struct TrieNode {
-        int next[CHARSET_SIZE]; // 子节点数组
-        int fail; // 失败指针
-        int end; // 是否为模式串结束节点，大于0表示结束节点
-    };
-
-    TrieNode nodes[MAX_NODE];
-    int nodeCount;
-
-public:
-    AhoCorasick() {
-        nodeCount = 1;
-        memset(nodes, 0, sizeof(nodes));
+void calc_next(vector<int> &next,string &a){
+    next.clear();
+    next.push_back(-1);
+    int i=0,j=-1;
+    while(i<a.size()){
+        if(j==-1||a[j]==a[i]){
+            i++;j++;
+            next.push_back(j);
+        }else j=next[j];
     }
-
-    // 向Trie树插入模式串
-    void insert(const string& pattern) {
-        int current = 0; // 根节点
-        for (char ch : pattern) {
-            int index = ch - 'a';
-            if (!nodes[current].next[index]) {
-                nodes[current].next[index] = nodeCount++;
-            }
-            current = nodes[current].next[index];
-        }
-        nodes[current].end++; // 标记模式串结束节点
-    }
-
-    // 构建失败指针
-    void build() {
-        queue<int> q;
-        nodes[0].fail = -1;
-        q.push(0);
-
-        while (!q.empty()) {
-            int current = q.front();
-            q.pop();
-
-            for (int i = 0; i < CHARSET_SIZE; ++i) {
-                int child = nodes[current].next[i];
-                if (child) {
-                    nodes[child].fail = (current == 0) ? 0 : nodes[nodes[current].fail].next[i];
-                    q.push(child);
-                } else {
-                    nodes[current].next[i] = nodes[nodes[current].fail].next[i];
-                }
-            }
-        }
-    }
-
-    // 查询文本中模式串出现的次数
-    int query(const string& text) {
-        int current = 0;
-        int result = 0;
-
-        for (char ch : text) {
-            int index = ch - 'a';
-            current = nodes[current].next[index];
-
-            for (int temp = current; temp && nodes[temp].end != -1; temp = nodes[temp].fail) {
-                result += nodes[temp].end;
-                nodes[temp].end = -1; // 防止重复计算
-            }
-        }
-
-        return result;
-    }
-};
-
-int work() {
-    AhoCorasick ac;
-    int n;
-    string tmp;
-    cin>>n;
-    for(int i=0;i<n;i++){
-        cin>>tmp;
-        ac.insert(tmp);
-    }
-    ac.build();
-    cin>>tmp;
-    cout<<ac.query(tmp)<<endll;
-    return 0;
-
+    return;
 }
-
+vector<int> kmp(string &a,string &b){
+    vector<int> next,ans;
+    calc_next(next,b);
+    int i=0,j=0;
+    while(i<a.size()){
+        if(j==-1||a[i]==b[j]){
+            i++;j++;
+            // cout<<"i="<<i<<' '<<"j="<<j<<endl;
+            if(j==b.size()){
+                cout<<i-j+1<<endl;
+                j=next[j];
+            }
+        }else j=next[j];
+    }
+    return next;
+}
+int nxt[210000];
+inline void cal_next(string &str)
+{
+    nxt[0] = -1;
+    int k = -1;
+    for (int q = 1; q < str.size(); q++)
+    {
+        while (k > -1 && str[k + 1] != str[q])
+            k = nxt[k];
+        if (str[k + 1] == str[q])
+        k = k + 1;
+    nxt[q] = k;
+    }
+}
+int KMP(string &a, string &b)
+{
+    cal_next(b);
+    int k = -1;
+    for (int i = 0; i < a.size(); i++)
+    {
+        while (k > -1 && b[k + 1] != a[i])
+            k = nxt[k];
+        if (b[k + 1] == a[i])
+            k = k + 1;
+        if (k == b.size() - 1)
+            return i;
+    }
+    return -1;
+}
+void work()
+{
+    string a,b;
+    cin>>a>>b;
+    // a=" "+a;
+    // b=" "+b;
+    vector<int> ans=kmp(a,b);
+    for(int i=1;i<ans.size();i++)
+        cout<<ans[i]<<' ';
+    cout<<endl;
+}
 signed main()
 {
    #ifndef ONLINE_JUDGE
